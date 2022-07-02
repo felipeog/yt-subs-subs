@@ -38,34 +38,34 @@
 >
 
 {#if isOpen}
-  {#if loading}
-    <p>loading...</p>
-  {/if}
-
-  {#if error}
-    <p>{error}</p>
-  {/if}
-
-  {#if ytSubsSubs !== undefined}
-    <p>{ytSubsSubs.length} subs found</p>
-
-    {#if !ytSubsSubs.length}
-      <p>no subs to show</p>
+  <section>
+    {#if loading}
+      <p>loading...</p>
     {/if}
 
-    <ol>
-      {#each ytSubsSubs as { snippet }}
-        <li>
-          <a
-            href="https://www.youtube.com/channel/{snippet.resourceId
-              .channelId}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {snippet.title}
-          </a>
-        </li>
-      {/each}
-    </ol>
-  {/if}
+    {#if error}
+      <p>{error}</p>
+    {/if}
+
+    {#if ytSubsSubs !== undefined}
+      <p>{ytSubsSubs.length} subs found</p>
+
+      {#if ytSubsSubs.length}
+        <ol>
+          {#each ytSubsSubs as { snippet }}
+            <li>
+              <a
+                href="https://www.youtube.com/channel/{snippet.resourceId
+                  .channelId}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {snippet.title}
+              </a>
+            </li>
+          {/each}
+        </ol>
+      {/if}
+    {/if}
+  </section>
 {/if}
