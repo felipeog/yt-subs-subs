@@ -1,34 +1,27 @@
 <script>
-  import { getYtSubs } from "../utils/getYtSubs";
+  import SubscriptionsList from "./SubscriptionsList.svelte";
+  import { subscription } from "../stores/subscription";
+
+  const { subscriptionStore, loadSubscriptions } = subscription();
 
   export let channelId;
 
-  let loading = false;
-  let error = "";
-  let ytSubsSubs = undefined;
   let isOpen = false;
+  let loading;
+  let error;
+  let subscriptions;
 
-  async function loadSubsSubs() {
-    loading = true;
-    error = "";
-    ytSubsSubs = undefined;
-
-    const response = await getYtSubs({ channelId });
-
-    if (typeof response === "string") {
-      error = response;
-    } else {
-      ytSubsSubs = response;
-    }
-
-    loading = false;
-  }
+  subscriptionStore.subscribe((nextState) => {
+    loading = nextState.loading;
+    error = nextState.error;
+    subscriptions = nextState.subscriptions;
+  });
 
   async function handleClick() {
     isOpen = !isOpen;
 
-    if (isOpen && !ytSubsSubs) {
-      await loadSubsSubs();
+    if (isOpen && !subscriptions) {
+      await loadSubscriptions({ channelId });
     }
   }
 </script>
@@ -38,34 +31,5 @@
 >
 
 {#if isOpen}
-  <section>
-    {#if loading}
-      <p>loading...</p>
-    {/if}
-
-    {#if error}
-      <p>{error}</p>
-    {/if}
-
-    {#if ytSubsSubs !== undefined}
-      <p>{ytSubsSubs.length} subs found</p>
-
-      {#if ytSubsSubs.length}
-        <ol>
-          {#each ytSubsSubs as { snippet }}
-            <li>
-              <a
-                href="https://www.youtube.com/channel/{snippet.resourceId
-                  .channelId}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {snippet.title}
-              </a>
-            </li>
-          {/each}
-        </ol>
-      {/if}
-    {/if}
-  </section>
+  <SubscriptionsList {loading} {error} {subscriptions} variation="small" />
 {/if}
