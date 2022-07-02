@@ -1,4 +1,6 @@
 <script>
+  import Accordion from "./Accordion.svelte";
+
   export let snippet;
   export let index;
 </script>
@@ -14,6 +16,8 @@
 </h1>
 
 <p>{snippet.description}</p>
+
+<Accordion channelId={snippet.resourceId.channelId} />
 
 <style>
   h1::before {

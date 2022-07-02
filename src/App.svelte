@@ -1,6 +1,5 @@
 <script>
   import Card from "./components/Card.svelte";
-  import Accordion from "./components/Accordion.svelte";
   import { getYtSubs } from "./utils/getYtSubs";
 
   let channelId = "";
@@ -27,7 +26,7 @@
 
 <main>
   <header>
-    <h1>browse your yt subs' subs</h1>
+    <h1>browse yt subs' subs</h1>
   </header>
 
   <p>
@@ -43,7 +42,7 @@
       href="https://support.google.com/youtube/answer/7280190"
       target="_blank"
       rel="noopener noreferrer"
-      >Make your yt subs public
+      >make your yt subs public
     </a>
   </p>
 
@@ -76,7 +75,6 @@
     {#each ytSubs as { snippet }, index}
       <article>
         <Card {snippet} index={index + 1} />
-        <Accordion channelId={snippet.resourceId.channelId} />
       </article>
     {/each}
   {/if}
