@@ -19,9 +19,9 @@
   }
 </script>
 
-<button on:click={handleClick} disabled={$subscriptionStore.loading}
-  >{isOpen ? "hide sub's subs" : "see sub's subs"}</button
->
+<button on:click={handleClick} disabled={$subscriptionStore.loading}>
+  {isOpen ? "hide sub's subs" : "see sub's subs"}
+</button>
 
 {#if isOpen}
   <SubscriptionsList {...$subscriptionStore} variation="small" />
