@@ -1,6 +1,7 @@
 <svelte:options immutable />
 
 <script>
+  import ExternalLink from "./ExternalLink.svelte";
   import Accordion from "./Accordion.svelte";
 
   export let variation = "big";
@@ -10,13 +11,11 @@
 {#if variation === "big"}
   <article>
     <h1>
-      <a
+      <ExternalLink
         href="https://www.youtube.com/channel/{snippet.resourceId.channelId}"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         {snippet.title}
-      </a>
+      </ExternalLink>
     </h1>
 
     <p>{snippet.description}</p>
@@ -26,11 +25,9 @@
 {/if}
 
 {#if variation === "small"}
-  <a
+  <ExternalLink
     href="https://www.youtube.com/channel/{snippet.resourceId.channelId}"
-    target="_blank"
-    rel="noopener noreferrer"
   >
     {snippet.title}
-  </a>
+  </ExternalLink>
 {/if}

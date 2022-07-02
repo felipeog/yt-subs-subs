@@ -1,4 +1,5 @@
 <script>
+  import ExternalLink from "./components/ExternalLink.svelte";
   import SubscriptionsList from "./components/SubscriptionsList.svelte";
   import { createSubscriptionStore } from "./stores/subscription";
 
@@ -25,19 +26,13 @@
     <h1>browse yt subs' subs</h1>
 
     <p>
-      <a
-        href="https://support.google.com/youtube/answer/3250431"
-        target="_blank"
-        rel="noopener noreferrer"
-        >find your yt channel id
-      </a>
+      <ExternalLink href="https://support.google.com/youtube/answer/3250431">
+        find your yt channel id
+      </ExternalLink>
       /
-      <a
-        href="https://support.google.com/youtube/answer/7280190"
-        target="_blank"
-        rel="noopener noreferrer"
-        >make your yt subs public
-      </a>
+      <ExternalLink href="https://support.google.com/youtube/answer/7280190">
+        make your yt subs public
+      </ExternalLink>
     </p>
   </header>
 
@@ -50,9 +45,9 @@
         type="text"
         required
       />
-      <button type="submit" disabled={$subscriptionStore.loading}
-        >get subs</button
-      >
+      <button type="submit" disabled={$subscriptionStore.loading}>
+        get subs
+      </button>
     </form>
   </section>
 
