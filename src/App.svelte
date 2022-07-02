@@ -4,6 +4,7 @@
 
   const { subscriptionStore, loadSubscriptions } = subscription();
 
+  let channelId = "";
   let loading;
   let error;
   let subscriptions;
@@ -13,8 +14,6 @@
     error = nextState.error;
     subscriptions = nextState.subscriptions;
   });
-
-  let channelId = "";
 
   async function handleSubmit() {
     await loadSubscriptions({ channelId });
