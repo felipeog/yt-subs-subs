@@ -27,7 +27,6 @@
 
 <main>
   <header>
-    <p>yt-subs-subs</p>
     <h1>browse your yt subs' subs</h1>
   </header>
 
@@ -37,6 +36,14 @@
       target="_blank"
       rel="noopener noreferrer"
       >find your yt channel id
+    </a>
+  </p>
+  <p>
+    <a
+      href="https://support.google.com/youtube/answer/7280190"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Make your yt subs public
     </a>
   </p>
 
@@ -78,11 +85,6 @@
 <style>
   :global(*) {
     text-transform: lowercase;
-  }
-
-  header > * {
-    margin: 0.6rem 0;
-    padding: 0;
   }
 
   input[type="text"] {
