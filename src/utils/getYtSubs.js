@@ -1,13 +1,19 @@
 const ERRORS = {
-  accountClosed: "account closed",
-  accountSuspended: "account suspended",
-  subscriptionForbidden: "account's subs are private",
-  subscriberNotFound: "account not found",
+  accountClosed: "channel closed",
+  accountSuspended: "channel suspended",
+  subscriptionForbidden: "channel's subs are private",
+  subscriberNotFound: "channel not found",
 };
 
+const channelsMap = new Map();
+
 async function getYtSubs({ channelId }) {
+  if (channelsMap.has(channelId)) {
+    return channelsMap.get(channelId);
+  }
+
   let response = {};
-  let results = [];
+  let preResult = [];
   let pageToken = "";
   let errorMessage;
 
@@ -43,7 +49,7 @@ async function getYtSubs({ channelId }) {
         break;
       }
 
-      results = results.concat(response.items);
+      preResult = preResult.concat(response.items);
       pageToken = response.nextPageToken;
     } catch (error) {
       console.error(`${channelId} >>>>> ${error}`);
@@ -54,7 +60,11 @@ async function getYtSubs({ channelId }) {
     }
   } while (response.nextPageToken);
 
-  return errorMessage ?? results;
+  const result = errorMessage ?? preResult;
+
+  channelsMap.set(channelId, result);
+
+  return result;
 }
 
 export { getYtSubs };
