@@ -21,7 +21,9 @@
   {/if}
 
   {#if subscriptions !== undefined}
-    <p>{subscriptions.length} subs found</p>
+    {@const subscriptionsCount = subscriptions.length}
+
+    <p>{subscriptionsCount} subs found</p>
 
     {#if subscriptions.length}
       <ol>
