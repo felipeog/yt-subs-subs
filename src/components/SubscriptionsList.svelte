@@ -1,4 +1,6 @@
 <script>
+  import { fade } from "svelte/transition";
+
   import SubscriptionItem from "./SubscriptionItem.svelte";
 
   export let variation = "big";
@@ -21,8 +23,8 @@
 
     {#if subscriptions.length}
       <ol>
-        {#each subscriptions as { snippet }}
-          <li>
+        {#each subscriptions as { snippet } (snippet.resourceId.channelId)}
+          <li transition:fade={{ duration: 200 }}>
             <SubscriptionItem {variation} {snippet} />
           </li>
         {/each}
