@@ -7,11 +7,6 @@
   let channelId = import.meta.env.DEV
     ? import.meta.env.VITE_DEV_CHANNEL_ID ?? ""
     : "";
-  let subscriptionsStoreState;
-
-  subscriptionStore.subscribe((nextState) => {
-    subscriptionsStoreState = nextState;
-  });
 
   async function handleSubmit() {
     await loadSubscriptions({ channelId });
@@ -44,17 +39,17 @@
       <input
         bind:value={channelId}
         placeholder="channel id"
-        disabled={subscriptionsStoreState.loading}
+        disabled={$subscriptionStore.loading}
         type="text"
         required
       />
-      <button type="submit" disabled={subscriptionsStoreState.loading}
+      <button type="submit" disabled={$subscriptionStore.loading}
         >get subs</button
       >
     </form>
   </section>
 
-  <SubscriptionsList {...subscriptionsStoreState} />
+  <SubscriptionsList {...$subscriptionStore} />
 </main>
 
 <style>
