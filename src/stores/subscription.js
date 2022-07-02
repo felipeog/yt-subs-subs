@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 import { getChannelSubscriptions } from "../utils/getChannelSubscriptions";
 
 function subscription() {
-  let subscriptionStore = writable({
+  const subscriptionStore = writable({
     loading: false,
     error: "",
     subscriptions: undefined,
