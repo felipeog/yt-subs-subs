@@ -1,26 +1,22 @@
 <script>
-  import Card from "./components/Card.svelte";
-  import { getYtSubs } from "./utils/getYtSubs";
+  import SubscriptionsList from "./components/SubscriptionsList.svelte";
+  import { subscription } from "./stores/subscription";
+
+  const { subscriptionStore, loadSubscriptions } = subscription();
 
   let channelId = "";
-  let loading = false;
-  let error = "";
-  let ytSubs = undefined;
+  let loading;
+  let error;
+  let subscriptions;
+
+  subscriptionStore.subscribe((nextState) => {
+    loading = nextState.loading;
+    error = nextState.error;
+    subscriptions = nextState.subscriptions;
+  });
 
   async function handleSubmit() {
-    loading = true;
-    error = "";
-    ytSubs = undefined;
-
-    const response = await getYtSubs({ channelId });
-
-    if (typeof response === "string") {
-      error = response;
-    } else {
-      ytSubs = response;
-    }
-
-    loading = false;
+    await loadSubscriptions({ channelId });
   }
 </script>
 
@@ -58,29 +54,7 @@
     </form>
   </section>
 
-  <section>
-    {#if loading}
-      <p>loading...</p>
-    {/if}
-
-    {#if error}
-      <p>{error}</p>
-    {/if}
-
-    {#if ytSubs !== undefined}
-      <p>{ytSubs.length} subs found</p>
-
-      {#if ytSubs.length}
-        <ol>
-          {#each ytSubs as { snippet }}
-            <li>
-              <Card {snippet} />
-            </li>
-          {/each}
-        </ol>
-      {/if}
-    {/if}
-  </section>
+  <SubscriptionsList {loading} {error} {subscriptions} />
 </main>
 
 <style>
