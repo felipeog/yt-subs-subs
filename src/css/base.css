@@ -1,0 +1,64 @@
+:root {
+  --primary_color: #cd9278;
+  --dark_gray: #070707;
+  --medium_gray: #444f55;
+  --light_gray: #fafafa;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  word-break: break-word;
+  text-transform: lowercase;
+  font-family: "Courier Prime", monospace;
+  color: var(--medium_gray);
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--light_gray);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-weight: bold;
+  color: var(--dark_gray);
+}
+
+input,
+button {
+  border-style: solid;
+  border-width: 0.1rem;
+  padding: 0.2rem 0.6rem;
+}
+
+input {
+  border-color: var(--medium_gray);
+  text-transform: none;
+}
+
+button {
+  background-color: var(--primary_color);
+  color: var(--light_gray);
+  border-color: var(--primary_color);
+  cursor: pointer;
+}
+
+a {
+  color: var(--primary_color);
+}
+
+a:visited {
+  color: var(--medium_gray);
+}
+
+a:hover {
+  filter: saturate(4);
+}
+
+a:active {
+  filter: saturate(2);
+}

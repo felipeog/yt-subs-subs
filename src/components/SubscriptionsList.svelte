@@ -23,12 +23,12 @@
   {#if subscriptions !== undefined}
     {@const subscriptionsCount = subscriptions.length}
 
-    <p>{subscriptionsCount} subs found</p>
+    <p class="count">{subscriptionsCount} subs found</p>
 
     {#if subscriptions.length}
       <ol>
         {#each subscriptions as { snippet } (snippet.resourceId.channelId)}
-          <li transition:fade={{ duration: 200 }}>
+          <li class={variation} transition:fade={{ duration: 200 }}>
             <SubscriptionItem {variation} {snippet} />
           </li>
         {/each}
@@ -36,3 +36,26 @@
     {/if}
   {/if}
 </section>
+
+<style>
+  p {
+    margin-top: 1rem;
+  }
+
+  .count {
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .big {
+    margin-top: 4rem;
+  }
+
+  .big:first-child {
+    margin-top: 2rem;
+  }
+
+  .small {
+    margin-top: 0.1rem;
+  }
+</style>
