@@ -4,14 +4,21 @@
 
   const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
 
+  let headTitle = "yt-subs-subs";
   let channelId = import.meta.env.DEV
     ? import.meta.env.VITE_DEV_CHANNEL_ID ?? ""
     : "";
 
   async function handleSubmit() {
     await loadSubscriptions({ channelId });
+
+    headTitle = `yt-subs-subs | channel id: ${channelId}`;
   }
 </script>
+
+<svelte:head>
+  <title>{headTitle}</title>
+</svelte:head>
 
 <main>
   <header>
