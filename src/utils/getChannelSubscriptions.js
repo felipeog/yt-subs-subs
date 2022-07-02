@@ -9,7 +9,11 @@ const channelsMap = new Map();
 
 async function getChannelSubscriptions({ channelId }) {
   if (channelsMap.has(channelId)) {
-    return channelsMap.get(channelId);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(channelsMap.get(channelId));
+      }, 500);
+    });
   }
 
   let response = {};
