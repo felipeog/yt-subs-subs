@@ -1,3 +1,5 @@
+<svelte:options immutable />
+
 <script>
   import SubscriptionsList from "./SubscriptionsList.svelte";
   import { createSubscriptionStore } from "../stores/subscription";
