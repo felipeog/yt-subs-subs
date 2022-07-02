@@ -19,7 +19,6 @@
 <style>
   header {
     display: grid;
-
     gap: 0.6rem;
   }
 
