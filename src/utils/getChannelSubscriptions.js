@@ -38,8 +38,6 @@ async function getChannelSubscriptions({ channelId }) {
       response = await response.json();
 
       if (response.error) {
-        console.error(`${channelId} >>>>> ${response.error.message}`);
-
         errorMessage =
           `error: ${ERRORS?.[response.error.errors[0].reason]}` ??
           "an error occurred";
@@ -50,8 +48,6 @@ async function getChannelSubscriptions({ channelId }) {
       preResult = preResult.concat(response.items);
       pageToken = response.nextPageToken;
     } catch (error) {
-      console.error(`${channelId} >>>>> ${error}`);
-
       errorMessage = error;
 
       break;

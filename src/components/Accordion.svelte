@@ -1,35 +1,31 @@
 <script>
   import SubscriptionsList from "./SubscriptionsList.svelte";
-  import { subscription } from "../stores/subscription";
+  import { createSubscriptionStore } from "../stores/subscription";
 
-  const { subscriptionStore, loadSubscriptions } = subscription();
+  const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
 
   export let channelId;
 
   let isOpen = false;
-  let loading;
-  let error;
-  let subscriptions;
+  let subscriptionsStoreState;
 
   subscriptionStore.subscribe((nextState) => {
-    loading = nextState.loading;
-    error = nextState.error;
-    subscriptions = nextState.subscriptions;
+    subscriptionsStoreState = nextState;
   });
 
   async function handleClick() {
     isOpen = !isOpen;
 
-    if (isOpen && !subscriptions) {
+    if (isOpen && !subscriptionsStoreState.subscriptions) {
       await loadSubscriptions({ channelId });
     }
   }
 </script>
 
-<button on:click={handleClick} disabled={loading}
+<button on:click={handleClick} disabled={subscriptionsStoreState.loading}
   >{isOpen ? "hide sub's subs" : "see sub's subs"}</button
 >
 
 {#if isOpen}
-  <SubscriptionsList {loading} {error} {subscriptions} variation="small" />
+  <SubscriptionsList {...subscriptionsStoreState} variation="small" />
 {/if}
