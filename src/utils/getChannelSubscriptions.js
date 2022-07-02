@@ -7,7 +7,7 @@ const ERRORS = {
 
 const channelsMap = new Map();
 
-async function getYtSubs({ channelId }) {
+async function getChannelSubscriptions({ channelId }) {
   if (channelsMap.has(channelId)) {
     return channelsMap.get(channelId);
   }
@@ -29,8 +29,6 @@ async function getYtSubs({ channelId }) {
   do {
     try {
       if (pageToken) {
-        searchParams.set("pageToken", pageToken);
-      } else {
         searchParams.set("pageToken", pageToken);
       }
 
@@ -67,4 +65,4 @@ async function getYtSubs({ channelId }) {
   return result;
 }
 
-export { getYtSubs };
+export { getChannelSubscriptions };

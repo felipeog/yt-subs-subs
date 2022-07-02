@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-import { getYtSubs } from "../utils/getYtSubs";
+import { getChannelSubscriptions } from "../utils/getChannelSubscriptions";
 
 function subscription() {
   let subscriptionStore = writable({
@@ -16,7 +16,7 @@ function subscription() {
       subscriptions: undefined,
     });
 
-    const response = await getYtSubs({ channelId });
+    const response = await getChannelSubscriptions({ channelId });
 
     if (typeof response === "string") {
       subscriptionStore.update((prevState) => ({
