@@ -51,7 +51,9 @@
     </form>
   </section>
 
-  <SubscriptionsList {...$subscriptionStore} />
+  {#key $subscriptionStore.subscriptions}
+    <SubscriptionsList {...$subscriptionStore} />
+  {/key}
 </main>
 
 <style>
