@@ -1,18 +1,16 @@
 <script>
   import SubscriptionsList from "./components/SubscriptionsList.svelte";
-  import { subscription } from "./stores/subscription";
+  import { createSubscriptionStore } from "./stores/subscription";
 
-  const { subscriptionStore, loadSubscriptions } = subscription();
+  const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
 
-  let channelId = "";
-  let loading;
-  let error;
-  let subscriptions;
+  let channelId = import.meta.env.DEV
+    ? import.meta.env.VITE_DEV_CHANNEL_ID ?? ""
+    : "";
+  let subscriptionsStoreState;
 
   subscriptionStore.subscribe((nextState) => {
-    loading = nextState.loading;
-    error = nextState.error;
-    subscriptions = nextState.subscriptions;
+    subscriptionsStoreState = nextState;
   });
 
   async function handleSubmit() {
@@ -42,19 +40,21 @@
   </header>
 
   <section>
-    <form on:submit|preventDefault={handleSubmit} disabled={loading}>
+    <form on:submit|preventDefault={handleSubmit}>
       <input
         bind:value={channelId}
         placeholder="channel id"
-        disabled={loading}
+        disabled={subscriptionsStoreState.loading}
         type="text"
         required
       />
-      <button type="submit" disabled={loading}>get subs</button>
+      <button type="submit" disabled={subscriptionsStoreState.loading}
+        >get subs</button
+      >
     </form>
   </section>
 
-  <SubscriptionsList {loading} {error} {subscriptions} />
+  <SubscriptionsList {...subscriptionsStoreState} />
 </main>
 
 <style>

@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 import { getChannelSubscriptions } from "../utils/getChannelSubscriptions";
 
-function subscription() {
+function createSubscriptionStore() {
   const subscriptionStore = writable({
     loading: false,
     error: "",
@@ -39,4 +39,4 @@ function subscription() {
   return { subscriptionStore, loadSubscriptions };
 }
 
-export { subscription };
+export { createSubscriptionStore };
