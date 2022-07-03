@@ -47,6 +47,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  filter: saturate(3);
+}
+
 button:disabled {
   background-color: var(--medium_gray);
   border-color: var(--medium_gray);
@@ -62,7 +66,7 @@ a:visited {
 }
 
 a:hover {
-  filter: saturate(4);
+  filter: saturate(3);
 }
 
 a:active {
