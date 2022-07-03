@@ -9,9 +9,7 @@
 
   let headTitle = "yt-subs-subs";
   let selectedChannel = {};
-  let query = import.meta.env.DEV
-    ? import.meta.env.VITE_DEV_CHANNEL_ID ?? ""
-    : "";
+  let query = "";
 
   $: isLoading = $subscriptionStore.loading || $channelStore.loading;
 
