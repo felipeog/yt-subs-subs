@@ -37,7 +37,7 @@ button {
 
 input {
   border-color: var(--medium_gray);
-  text-transform: none;
+  background-color: transparent;
 }
 
 button {
