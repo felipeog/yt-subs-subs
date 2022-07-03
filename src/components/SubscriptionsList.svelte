@@ -1,7 +1,7 @@
 <svelte:options immutable />
 
 <script>
-  import { fade } from "svelte/transition";
+  import { customFade } from "../animations/customFade";
 
   import SubscriptionItem from "./SubscriptionItem.svelte";
 
@@ -13,11 +13,11 @@
 
 <div>
   {#if loading}
-    <p>loading...</p>
+    <p in:customFade>loading...</p>
   {/if}
 
   {#if error}
-    <p>{error}</p>
+    <p in:customFade>{error}</p>
   {/if}
 
   {#if subscriptions !== undefined}
@@ -28,7 +28,7 @@
     {#if subscriptions.length}
       <ol>
         {#each subscriptions as { snippet } (snippet.resourceId.channelId)}
-          <li class={variation} transition:fade={{ duration: 200 }}>
+          <li class={variation} in:customFade>
             <SubscriptionItem {variation} {snippet} />
           </li>
         {/each}
