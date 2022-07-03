@@ -1,6 +1,7 @@
 # yt-subs-subs
 
-See which channels your subscriptions subscribe to.
+- Search for a channel
+- Browse its subs, and each sub's subs
 
 ## Resources
 
