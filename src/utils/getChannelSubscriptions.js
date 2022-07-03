@@ -58,6 +58,7 @@ async function getChannelSubscriptions({ channelId }) {
 
   channelsMap.set(channelId, result);
 
+  // TODO: sort alphabetically
   return result;
 }
 
