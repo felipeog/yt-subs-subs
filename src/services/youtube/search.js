@@ -1,10 +1,10 @@
 import { API_KEY, BASE_URL } from "./consts";
 
-const searchCache = new Map();
+const cache = new Map();
 
 async function search({ query }) {
-  if (searchCache.has(query)) {
-    return searchCache.get(query);
+  if (cache.has(query)) {
+    return cache.get(query);
   }
 
   let response = {};
@@ -30,7 +30,7 @@ async function search({ query }) {
 
   const result = errorMessage ?? preResult;
 
-  searchCache.set(query, result);
+  cache.set(query, result);
 
   return result;
 }

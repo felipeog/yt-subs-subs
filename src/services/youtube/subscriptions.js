@@ -7,11 +7,11 @@ const errorMessages = {
   subscriberNotFound: "channel not found",
 };
 
-const searchCache = new Map();
+const cache = new Map();
 
 async function subscriptions({ channelId }) {
-  if (searchCache.has(channelId)) {
-    return searchCache.get(channelId);
+  if (cache.has(channelId)) {
+    return cache.get(channelId);
   }
 
   let response = {};
@@ -60,7 +60,7 @@ async function subscriptions({ channelId }) {
       return a.snippet.title.localeCompare(b.snippet.title);
     });
 
-  searchCache.set(channelId, result);
+  cache.set(channelId, result);
 
   return result;
 }
