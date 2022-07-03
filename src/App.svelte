@@ -1,12 +1,13 @@
 <script>
   import Header from "./components/Header.svelte";
   import Search from "./components/Search.svelte";
+  import ScrollToTheTopButton from "./components/ScrollToTheTopButton.svelte";
 </script>
 
 <main>
   <Header />
   <Search />
-  <!-- TODO: <ScrollToTheTopButton /> -->
+  <ScrollToTheTopButton />
 </main>
 
 <style>
