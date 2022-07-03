@@ -37,7 +37,7 @@ button {
 
 input {
   border-color: var(--medium_gray);
-  text-transform: none;
+  background-color: transparent;
 }
 
 button {
@@ -45,6 +45,12 @@ button {
   color: var(--light_gray);
   border-color: var(--primary_color);
   cursor: pointer;
+}
+
+button:disabled {
+  background-color: var(--medium_gray);
+  border-color: var(--medium_gray);
+  cursor: not-allowed;
 }
 
 a {

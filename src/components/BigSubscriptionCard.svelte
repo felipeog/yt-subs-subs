@@ -30,7 +30,9 @@
     </ExternalLink>
   </h1>
 
-  <p>{snippet.description}</p>
+  {#if snippet.description}
+    <p>{snippet.description}</p>
+  {/if}
 
   <Accordion {isAccordionOpen}>
     <button
