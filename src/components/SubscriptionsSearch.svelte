@@ -1,20 +1,20 @@
 <script>
   import SubscriptionsList from "./SubscriptionsList.svelte";
   import ChannelsSearchList from "./ChannelsSearchList.svelte";
-  import { createSubscriptionStore } from "../stores/subscription";
-  import { createChannelStore } from "../stores/channel";
+  import { createSubscriptionsStore } from "../stores/subscriptions";
+  import { createSearchStore } from "../stores/search";
 
-  const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
-  const { channelStore, searchChannels } = createChannelStore();
+  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
+  const { searchStore, loadSearch } = createSearchStore();
 
   let headTitle = "yt-subs-subs";
   let selectedChannel = {};
   let query = "";
 
-  $: isLoading = $subscriptionStore.loading || $channelStore.loading;
+  $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
 
   async function handleChannelsSearch() {
-    await searchChannels({ query });
+    await loadSearch({ query });
   }
 
   function handleSubscriptionsLoad({ snippet }) {
@@ -45,16 +45,16 @@
     <button type="submit" disabled={isLoading}>search</button>
   </form>
 
-  {#key $channelStore.channels}
+  {#key $searchStore.data}
     <ChannelsSearchList
-      {...$channelStore}
+      {...$searchStore}
       {selectedChannel}
       handleClick={handleSubscriptionsLoad}
     />
   {/key}
 
-  {#key $subscriptionStore.subscriptions}
-    <SubscriptionsList {...$subscriptionStore} />
+  {#key $subscriptionsStore.data}
+    <SubscriptionsList {...$subscriptionsStore} />
   {/key}
 </section>
 

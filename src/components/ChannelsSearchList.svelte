@@ -3,11 +3,11 @@
 <script>
   import { customFade } from "../animations/customFade";
 
-  export let loading;
-  export let error;
-  export let channels;
   export let selectedChannel;
   export let handleClick;
+  export let loading;
+  export let error;
+  export let data;
 </script>
 
 <div>
@@ -19,10 +19,10 @@
     <p in:customFade>{error}</p>
   {/if}
 
-  {#if channels !== undefined}
-    {#if channels.length}
+  {#if data !== undefined}
+    {#if data.length}
       <ul>
-        {#each channels as { snippet } (snippet.channelId)}
+        {#each data as { snippet } (snippet.channelId)}
           <!-- TODO: make tabbable -->
           <li
             in:customFade
