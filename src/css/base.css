@@ -47,6 +47,12 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: var(--medium_gray);
+  border-color: var(--medium_gray);
+  cursor: not-allowed;
+}
+
 a {
   color: var(--primary_color);
 }
