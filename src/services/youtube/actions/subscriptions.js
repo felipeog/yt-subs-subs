@@ -1,4 +1,4 @@
-import { API_KEY, BASE_URL } from "./consts";
+import { API_KEY, BASE_URL } from "../consts";
 
 const errorMessages = {
   accountClosed: "channel closed",

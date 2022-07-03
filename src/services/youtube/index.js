@@ -1,5 +1,4 @@
-import { search } from "./search";
-import { subscriptions } from "./subscriptions";
+import { search, subscriptions } from "./actions";
 
 const youtube = {
   search,
