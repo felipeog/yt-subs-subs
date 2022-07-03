@@ -1,5 +1,3 @@
-<svelte:options immutable />
-
 <script>
   import { customFade } from "../animations/customFade";
 
