@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-import { getChannelsSearch } from "../utils/getChannelsSearch";
+import { youtube } from "../services/youtube";
 
 // TODO: create createFetchStore
 function createChannelStore() {
@@ -17,7 +17,7 @@ function createChannelStore() {
       channels: undefined,
     });
 
-    const response = await getChannelsSearch({ query });
+    const response = await youtube.search({ query });
 
     if (typeof response === "string") {
       channelStore.update((prevState) => ({
