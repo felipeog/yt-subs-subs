@@ -1,6 +1,10 @@
-const apiErrors = {
+const coreErrors = {
   forbidden: "api connection blocked",
   quotaExceeded: "api quota exceeded",
+};
+
+const searchListErrors = {
+  // no relevant errors
 };
 
 const subscriptionsListErrors = {
@@ -11,7 +15,8 @@ const subscriptionsListErrors = {
 };
 
 const errorMessages = {
-  ...apiErrors,
+  ...coreErrors,
+  ...searchListErrors,
   ...subscriptionsListErrors,
 };
 
