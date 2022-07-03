@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 
 import { getChannelsSearch } from "../utils/getChannelsSearch";
 
+// TODO: create createFetchStore
 function createChannelStore() {
   const channelStore = writable({
     loading: false,
