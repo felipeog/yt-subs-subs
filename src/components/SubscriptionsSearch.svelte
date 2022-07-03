@@ -1,27 +1,27 @@
 <script>
   import SubscriptionsList from "./SubscriptionsList.svelte";
-  import ChannelsSearchList from "./ChannelsSearchList.svelte";
-  import { createSubscriptionStore } from "../stores/subscription";
-  import { createChannelStore } from "../stores/channel";
+  import SearchList from "./SearchList.svelte";
+  import { createSubscriptionsStore } from "../stores/subscriptions";
+  import { createSearchStore } from "../stores/search";
 
-  const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
-  const { channelStore, searchChannels } = createChannelStore();
+  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
+  const { searchStore, loadSearch } = createSearchStore();
 
   let headTitle = "yt-subs-subs";
-  let selectedChannel = {};
+  let currentChannel = {};
   let query = "";
 
-  $: isLoading = $subscriptionStore.loading || $channelStore.loading;
+  $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
 
-  async function handleChannelsSearch() {
-    await searchChannels({ query });
+  async function getSearchResults() {
+    await loadSearch({ query });
   }
 
-  function handleSubscriptionsLoad({ snippet }) {
+  function selectChannel({ snippet }) {
     return async function () {
       await loadSubscriptions({ channelId: snippet.channelId });
 
-      selectedChannel = snippet;
+      currentChannel = snippet;
       query = snippet.channelTitle;
       headTitle = `yt-subs-subs | ${snippet.channelTitle}`;
     };
@@ -33,7 +33,7 @@
 </svelte:head>
 
 <section>
-  <form on:submit|preventDefault={handleChannelsSearch}>
+  <form on:submit|preventDefault={getSearchResults}>
     <input
       bind:value={query}
       placeholder="channel name"
@@ -45,16 +45,12 @@
     <button type="submit" disabled={isLoading}>search</button>
   </form>
 
-  {#key $channelStore.channels}
-    <ChannelsSearchList
-      {...$channelStore}
-      {selectedChannel}
-      handleClick={handleSubscriptionsLoad}
-    />
+  {#key $searchStore.data}
+    <SearchList {currentChannel} {selectChannel} {...$searchStore} />
   {/key}
 
-  {#key $subscriptionStore.subscriptions}
-    <SubscriptionsList {...$subscriptionStore} />
+  {#key $subscriptionsStore.data}
+    <SubscriptionsList {...$subscriptionsStore} />
   {/key}
 </section>
 

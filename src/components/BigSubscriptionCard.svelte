@@ -4,18 +4,18 @@
   import ExternalLink from "./ExternalLink.svelte";
   import Accordion from "./Accordion.svelte";
   import SubscriptionsList from "./SubscriptionsList.svelte";
-  import { createSubscriptionStore } from "../stores/subscription";
+  import { createSubscriptionsStore } from "../stores/subscriptions";
 
-  const { subscriptionStore, loadSubscriptions } = createSubscriptionStore();
+  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
 
   export let snippet;
 
   let isAccordionOpen = false;
 
-  async function handleClick() {
+  async function toggleAccordion() {
     isAccordionOpen = !isAccordionOpen;
 
-    if (isAccordionOpen && !$subscriptionStore.subscriptions) {
+    if (isAccordionOpen && !$subscriptionsStore.data) {
       await loadSubscriptions({ channelId: snippet.resourceId.channelId });
     }
   }
@@ -37,8 +37,8 @@
   <Accordion {isAccordionOpen}>
     <button
       slot="trigger"
-      on:click={handleClick}
-      disabled={$subscriptionStore.loading}
+      on:click={toggleAccordion}
+      disabled={$subscriptionsStore.loading}
     >
       {isAccordionOpen ? "hide sub's subs" : "see sub's subs"}
     </button>
@@ -46,7 +46,7 @@
     <SubscriptionsList
       slot="content"
       variation="small"
-      {...$subscriptionStore}
+      {...$subscriptionsStore}
     />
   </Accordion>
 </article>

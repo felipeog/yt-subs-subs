@@ -8,7 +8,7 @@
   export let variation = "big";
   export let loading;
   export let error;
-  export let subscriptions;
+  export let data;
 </script>
 
 <div>
@@ -20,14 +20,14 @@
     <p in:customFade>{error}</p>
   {/if}
 
-  {#if subscriptions !== undefined}
-    {@const subscriptionsCount = subscriptions.length}
+  {#if data !== undefined}
+    {@const subscriptionsCount = data.length}
 
     <p class="count">{subscriptionsCount} subs found</p>
 
-    {#if subscriptions.length}
+    {#if data.length}
       <ol>
-        {#each subscriptions as { snippet } (snippet.resourceId.channelId)}
+        {#each data as { snippet } (snippet.resourceId.channelId)}
           <li class={variation} in:customFade>
             <SubscriptionItem {variation} {snippet} />
           </li>

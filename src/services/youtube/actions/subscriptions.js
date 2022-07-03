@@ -1,15 +1,17 @@
-const ERRORS = {
+import { API_KEY, BASE_URL } from "../consts";
+
+const errorMessages = {
   accountClosed: "channel closed",
   accountSuspended: "channel suspended",
   subscriptionForbidden: "channel's subs are private",
   subscriberNotFound: "channel not found",
 };
 
-const channelsMap = new Map();
+const cache = new Map();
 
-async function getChannelSubscriptions({ channelId }) {
-  if (channelsMap.has(channelId)) {
-    return channelsMap.get(channelId);
+async function subscriptions({ channelId }) {
+  if (cache.has(channelId)) {
+    return cache.get(channelId);
   }
 
   let response = {};
@@ -22,9 +24,7 @@ async function getChannelSubscriptions({ channelId }) {
   searchParams.set("part", "snippet");
   searchParams.set("channelId", channelId);
   searchParams.set("maxResults", "50");
-  searchParams.set("key", import.meta.env.VITE_YT_API_KEY);
-  // FIXME: does not work:
-  // searchParams.set("order", "alphabetical");
+  searchParams.set("key", API_KEY);
 
   do {
     try {
@@ -33,13 +33,13 @@ async function getChannelSubscriptions({ channelId }) {
       }
 
       response = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/subscriptions?${searchParams.toString()}`
+        `${BASE_URL}/subscriptions?${searchParams.toString()}`
       );
       response = await response.json();
 
       if (response.error) {
         errorMessage =
-          `error: ${ERRORS?.[response.error.errors[0].reason]}` ??
+          `error: ${errorMessages?.[response.error.errors[0].reason]}` ??
           "an error occurred";
 
         break;
@@ -54,12 +54,15 @@ async function getChannelSubscriptions({ channelId }) {
     }
   } while (response.nextPageToken);
 
-  const result = errorMessage ?? preResult;
+  const result =
+    errorMessage ??
+    preResult.sort((a, b) => {
+      return a.snippet.title.localeCompare(b.snippet.title);
+    });
 
-  channelsMap.set(channelId, result);
+  cache.set(channelId, result);
 
-  // TODO: sort alphabetically
   return result;
 }
 
-export { getChannelSubscriptions };
+export { subscriptions };

@@ -1,8 +1,10 @@
-const searchMap = new Map();
+import { API_KEY, BASE_URL } from "../consts";
 
-async function getChannelsSearch({ query }) {
-  if (searchMap.has(query)) {
-    return searchMap.get(query);
+const cache = new Map();
+
+async function search({ query }) {
+  if (cache.has(query)) {
+    return cache.get(query);
   }
 
   let response = {};
@@ -15,12 +17,10 @@ async function getChannelsSearch({ query }) {
   searchParams.set("maxResults", "50");
   searchParams.set("q", query);
   searchParams.set("type", "channel");
-  searchParams.set("key", import.meta.env.VITE_YT_API_KEY);
+  searchParams.set("key", API_KEY);
 
   try {
-    response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?${searchParams.toString()}`
-    );
+    response = await fetch(`${BASE_URL}/search?${searchParams.toString()}`);
     response = await response.json();
 
     preResult = preResult.concat(response.items);
@@ -30,9 +30,9 @@ async function getChannelsSearch({ query }) {
 
   const result = errorMessage ?? preResult;
 
-  searchMap.set(query, result);
+  cache.set(query, result);
 
   return result;
 }
 
-export { getChannelsSearch };
+export { search };
