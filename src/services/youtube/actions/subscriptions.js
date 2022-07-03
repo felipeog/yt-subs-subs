@@ -1,5 +1,4 @@
-import { API_KEY, BASE_URL } from "../consts";
-import { getErrorMessage } from "../utils/getErrorMessage";
+import { getErrorMessage, fetchJson } from "../utils";
 
 const cache = new Map();
 
@@ -18,7 +17,6 @@ async function subscriptions({ channelId }) {
   searchParams.set("part", "snippet");
   searchParams.set("channelId", channelId);
   searchParams.set("maxResults", "50");
-  searchParams.set("key", API_KEY);
 
   do {
     try {
@@ -26,10 +24,10 @@ async function subscriptions({ channelId }) {
         searchParams.set("pageToken", pageToken);
       }
 
-      response = await fetch(
-        `${BASE_URL}/subscriptions?${searchParams.toString()}`
-      );
-      response = await response.json();
+      response = await fetchJson({
+        path: "/subscriptions",
+        searchParams,
+      });
 
       if (response.error) {
         errorMessage = getErrorMessage(response.error);

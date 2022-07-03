@@ -1,5 +1,4 @@
-import { API_KEY, BASE_URL } from "../consts";
-import { getErrorMessage } from "../utils/getErrorMessage";
+import { getErrorMessage, fetchJson } from "../utils";
 
 const cache = new Map();
 
@@ -18,11 +17,12 @@ async function search({ query }) {
   searchParams.set("maxResults", "50");
   searchParams.set("q", query);
   searchParams.set("type", "channel");
-  searchParams.set("key", API_KEY);
 
   try {
-    response = await fetch(`${BASE_URL}/search?${searchParams.toString()}`);
-    response = await response.json();
+    response = await fetchJson({
+      path: "/search",
+      searchParams,
+    });
 
     if (response.error) {
       errorMessage = getErrorMessage(response.error);
