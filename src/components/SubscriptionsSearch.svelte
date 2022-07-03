@@ -36,7 +36,7 @@
   <form on:submit|preventDefault={handleChannelsSearch}>
     <input
       bind:value={query}
-      placeholder="channel name or id"
+      placeholder="channel name"
       disabled={isLoading}
       type="text"
       required
