@@ -11,7 +11,7 @@
   export let subscriptions;
 </script>
 
-<section>
+<div>
   {#if loading}
     <p>loading...</p>
   {/if}
@@ -35,7 +35,7 @@
       </ol>
     {/if}
   {/if}
-</section>
+</div>
 
 <style>
   p {
