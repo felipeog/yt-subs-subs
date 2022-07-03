@@ -1,7 +1,5 @@
 <header>
   <h1>yt subs' subs</h1>
-
-  <p>see which channels your subs subscribe to</p>
 </header>
 
 <style>
