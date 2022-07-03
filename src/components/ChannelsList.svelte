@@ -21,9 +21,9 @@
   {/if}
 
   {#if data !== undefined}
-    {@const subscriptionsCount = data.length}
+    {@const channelsCount = data.length}
 
-    <p class="count">{subscriptionsCount} subs found</p>
+    <p class="count">{channelsCount} subs found</p>
 
     {#if data.length}
       <ol>
