@@ -1,6 +1,6 @@
 <script>
   import SubscriptionsList from "./SubscriptionsList.svelte";
-  import ChannelsSearchList from "./ChannelsSearchList.svelte";
+  import SearchList from "./SearchList.svelte";
   import { createSubscriptionsStore } from "../stores/subscriptions";
   import { createSearchStore } from "../stores/search";
 
@@ -8,20 +8,20 @@
   const { searchStore, loadSearch } = createSearchStore();
 
   let headTitle = "yt-subs-subs";
-  let selectedChannel = {};
+  let currentChannel = {};
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
 
-  async function handleChannelsSearch() {
+  async function getSearchResults() {
     await loadSearch({ query });
   }
 
-  function handleSubscriptionsLoad({ snippet }) {
+  function selectChannel({ snippet }) {
     return async function () {
       await loadSubscriptions({ channelId: snippet.channelId });
 
-      selectedChannel = snippet;
+      currentChannel = snippet;
       query = snippet.channelTitle;
       headTitle = `yt-subs-subs | ${snippet.channelTitle}`;
     };
@@ -33,7 +33,7 @@
 </svelte:head>
 
 <section>
-  <form on:submit|preventDefault={handleChannelsSearch}>
+  <form on:submit|preventDefault={getSearchResults}>
     <input
       bind:value={query}
       placeholder="channel name"
@@ -46,11 +46,7 @@
   </form>
 
   {#key $searchStore.data}
-    <ChannelsSearchList
-      {...$searchStore}
-      {selectedChannel}
-      handleClick={handleSubscriptionsLoad}
-    />
+    <SearchList {currentChannel} {selectChannel} {...$searchStore} />
   {/key}
 
   {#key $subscriptionsStore.data}
