@@ -1,11 +1,5 @@
 import { API_KEY, BASE_URL } from "../consts";
-
-const errorMessages = {
-  accountClosed: "channel closed",
-  accountSuspended: "channel suspended",
-  subscriptionForbidden: "channel's subs are private",
-  subscriberNotFound: "channel not found",
-};
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 const cache = new Map();
 
@@ -38,15 +32,13 @@ async function subscriptions({ channelId }) {
       response = await response.json();
 
       if (response.error) {
-        errorMessage =
-          `error: ${errorMessages?.[response.error.errors[0].reason]}` ??
-          "an error occurred";
+        errorMessage = getErrorMessage(response.error);
 
         break;
+      } else {
+        preResult = preResult.concat(response.items);
+        pageToken = response.nextPageToken;
       }
-
-      preResult = preResult.concat(response.items);
-      pageToken = response.nextPageToken;
     } catch (error) {
       errorMessage = error;
 

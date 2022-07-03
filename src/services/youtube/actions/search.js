@@ -1,4 +1,5 @@
 import { API_KEY, BASE_URL } from "../consts";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 const cache = new Map();
 
@@ -23,7 +24,11 @@ async function search({ query }) {
     response = await fetch(`${BASE_URL}/search?${searchParams.toString()}`);
     response = await response.json();
 
-    preResult = preResult.concat(response.items);
+    if (response.error) {
+      errorMessage = getErrorMessage(response.error);
+    } else {
+      preResult = preResult.concat(response.items);
+    }
   } catch (error) {
     errorMessage = error;
   }
