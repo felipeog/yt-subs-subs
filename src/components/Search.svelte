@@ -17,14 +17,12 @@
     await loadSearch({ query });
   }
 
-  function selectChannel({ snippet }) {
-    return async function () {
-      await loadSubscriptions({ channelId: snippet.channelId });
+  async function selectChannel({ snippet }) {
+    await loadSubscriptions({ channelId: snippet.channelId });
 
-      currentChannel = snippet;
-      query = snippet.channelTitle;
-      headTitle = `yt-subs-subs | ${snippet.channelTitle}`;
-    };
+    currentChannel = snippet;
+    query = snippet.channelTitle;
+    headTitle = `yt-subs-subs | ${snippet.channelTitle.toLowerCase()}`;
   }
 </script>
 
@@ -34,13 +32,7 @@
 
 <section>
   <form on:submit|preventDefault={getSearchResults}>
-    <input
-      bind:value={query}
-      placeholder="channel name"
-      disabled={isLoading}
-      type="text"
-      required
-    />
+    <input bind:value={query} placeholder="channel name" type="text" required />
 
     <button type="submit" disabled={isLoading}>search</button>
   </form>

@@ -8,6 +8,20 @@
   export let loading;
   export let error;
   export let data;
+
+  function handleResultClick(snippet) {
+    return function () {
+      selectChannel({ snippet });
+    };
+  }
+
+  function handleResultKeyDown(snippet) {
+    return function (event) {
+      if (event.code.toLowerCase() === "enter") {
+        selectChannel({ snippet });
+      }
+    };
+  }
 </script>
 
 <div>
@@ -23,11 +37,12 @@
     {#if data.length}
       <ul>
         {#each data as { snippet } (snippet.channelId)}
-          <!-- TODO: make tabbable -->
           <li
             in:customFade
-            on:click={selectChannel({ snippet })}
+            on:click={handleResultClick(snippet)}
+            on:keydown={handleResultKeyDown(snippet)}
             class:isSelected={snippet.channelId === currentChannel.channelId}
+            tabindex="0"
           >
             {snippet.channelTitle}
           </li>
