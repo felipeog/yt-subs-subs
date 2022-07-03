@@ -3,7 +3,7 @@
 <script>
   import ExternalLink from "./ExternalLink.svelte";
   import Accordion from "./Accordion.svelte";
-  import SubscriptionsList from "./SubscriptionsList.svelte";
+  import ChannelsList from "./ChannelsList.svelte";
   import { createSubscriptionsStore } from "../stores/subscriptions";
 
   const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
@@ -43,11 +43,7 @@
       {isAccordionOpen ? "hide sub's subs" : "see sub's subs"}
     </button>
 
-    <SubscriptionsList
-      slot="content"
-      variation="small"
-      {...$subscriptionsStore}
-    />
+    <ChannelsList slot="content" variation="small" {...$subscriptionsStore} />
   </Accordion>
 </article>
 

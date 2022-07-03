@@ -1,11 +1,11 @@
 <script>
   import Header from "./components/Header.svelte";
-  import SubscriptionsSearch from "./components/SubscriptionsSearch.svelte";
+  import Search from "./components/Search.svelte";
 </script>
 
 <main>
   <Header />
-  <SubscriptionsSearch />
+  <Search />
   <!-- TODO: <ScrollToTheTopButton /> -->
 </main>
 
