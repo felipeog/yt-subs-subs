@@ -1,6 +1,6 @@
 <script>
-  import SubscriptionsList from "./SubscriptionsList.svelte";
-  import SearchList from "./SearchList.svelte";
+  import ChannelsList from "./ChannelsList.svelte";
+  import ResultsList from "./ResultsList.svelte";
   import { createSubscriptionsStore } from "../stores/subscriptions";
   import { createSearchStore } from "../stores/search";
 
@@ -46,11 +46,11 @@
   </form>
 
   {#key $searchStore.data}
-    <SearchList {currentChannel} {selectChannel} {...$searchStore} />
+    <ResultsList {currentChannel} {selectChannel} {...$searchStore} />
   {/key}
 
   {#key $subscriptionsStore.data}
-    <SubscriptionsList {...$subscriptionsStore} />
+    <ChannelsList {...$subscriptionsStore} />
   {/key}
 </section>
 

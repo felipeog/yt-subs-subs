@@ -3,7 +3,7 @@
 <script>
   import { customFade } from "../animations/customFade";
 
-  import SubscriptionItem from "./SubscriptionItem.svelte";
+  import ChannelItem from "./ChannelItem.svelte";
 
   export let variation = "big";
   export let loading;
@@ -21,15 +21,15 @@
   {/if}
 
   {#if data !== undefined}
-    {@const subscriptionsCount = data.length}
+    {@const channelsCount = data.length}
 
-    <p class="count">{subscriptionsCount} subs found</p>
+    <p class="count">{channelsCount} subs found</p>
 
     {#if data.length}
       <ol>
         {#each data as { snippet } (snippet.resourceId.channelId)}
           <li class={variation} in:customFade>
-            <SubscriptionItem {variation} {snippet} />
+            <ChannelItem {variation} {snippet} />
           </li>
         {/each}
       </ol>
