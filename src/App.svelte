@@ -6,6 +6,7 @@
 <main>
   <Header />
   <SubscriptionsSearch />
+  <!-- TODO: <ScrollToTheTopButton /> -->
 </main>
 
 <style>
