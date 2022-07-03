@@ -23,8 +23,6 @@ async function getChannelSubscriptions({ channelId }) {
   searchParams.set("channelId", channelId);
   searchParams.set("maxResults", "50");
   searchParams.set("key", import.meta.env.VITE_YT_API_KEY);
-  // FIXME: does not work:
-  // searchParams.set("order", "alphabetical");
 
   do {
     try {
@@ -54,11 +52,14 @@ async function getChannelSubscriptions({ channelId }) {
     }
   } while (response.nextPageToken);
 
-  const result = errorMessage ?? preResult;
+  const result =
+    errorMessage ??
+    preResult.sort((a, b) => {
+      return a.snippet.title.localeCompare(b.snippet.title);
+    });
 
   channelsMap.set(channelId, result);
 
-  // TODO: sort alphabetically
   return result;
 }
 
