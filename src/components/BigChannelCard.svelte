@@ -1,12 +1,15 @@
 <svelte:options immutable />
 
 <script>
+  import BrowseThisChannelButton from "./BrowseThisChannelButton.svelte";
   import ExternalLink from "./ExternalLink.svelte";
   import Accordion from "./Accordion.svelte";
   import ChannelsList from "./ChannelsList.svelte";
-  import { createSubscriptionsStore } from "../stores/subscriptions";
+  import { youtube } from "../services/youtube";
+  import { createFetchStore } from "../stores/utils/createFetchStore";
 
-  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
+  const { store: localSubscriptionsStore, load: localLoadSubscriptions } =
+    createFetchStore({ fetchFunction: youtube.subscriptions });
 
   export let snippet;
 
@@ -15,7 +18,9 @@
   $: {
     if (isAccordionOpen) {
       (async () => {
-        await loadSubscriptions({ channelId: snippet.resourceId.channelId });
+        await localLoadSubscriptions({
+          channelId: snippet.resourceId.channelId,
+        });
       })();
     }
   }
@@ -32,22 +37,26 @@
     >
       {snippet.title}
     </ExternalLink>
+
+    <BrowseThisChannelButton channelId={snippet.resourceId.channelId} />
   </h1>
 
-  {#if snippet.description}
-    <p>{snippet.description}</p>
-  {/if}
+  <p>{snippet.description ?? "no description"}</p>
 
   <Accordion {isAccordionOpen}>
     <button
       slot="trigger"
       on:click={toggleAccordion}
-      disabled={$subscriptionsStore.loading}
+      disabled={$localSubscriptionsStore.loading}
     >
       {isAccordionOpen ? "hide sub's subs" : "see sub's subs"}
     </button>
 
-    <ChannelsList slot="content" variation="small" {...$subscriptionsStore} />
+    <ChannelsList
+      slot="content"
+      variation="small"
+      {...$localSubscriptionsStore}
+    />
   </Accordion>
 </article>
 

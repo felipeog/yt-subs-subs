@@ -1,33 +1,31 @@
 <script>
   import ChannelsList from "./ChannelsList.svelte";
   import ResultsList from "./ResultsList.svelte";
-  import { createSubscriptionsStore } from "../stores/subscriptions";
-  import { createSearchStore } from "../stores/search";
+  import SelectedChannelCard from "./SelectedChannelCard.svelte";
+  import { searchStore, loadSearch } from "../stores/search";
+  import {
+    subscriptionsStore,
+    loadSubscriptions,
+  } from "../stores/subscriptions";
 
-  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
-  const { searchStore, loadSearch } = createSearchStore();
-
-  let currentChannel = {};
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = currentChannel.channelTitle
-    ? `yt-subs-subs | ${currentChannel.channelTitle}`
+  $: headTitle = $searchStore.currentChannel.channelTitle
+    ? `yt-subs-subs | ${$searchStore.currentChannel.channelTitle}`
     : "yt-subs-subs";
   $: {
     (async () => {
-      if (currentChannel.channelId) {
-        await loadSubscriptions({ channelId: currentChannel.channelId });
+      if ($searchStore.currentChannel.channelId) {
+        await loadSubscriptions({
+          channelId: $searchStore.currentChannel.channelId,
+        });
       }
     })();
   }
 
   async function getSearchResults() {
     await loadSearch({ query });
-  }
-
-  async function selectChannel({ snippet }) {
-    currentChannel = snippet;
   }
 </script>
 
@@ -42,9 +40,9 @@
     <button type="submit" disabled={isLoading}>search</button>
   </form>
 
-  {#key $searchStore.data}
-    <ResultsList {currentChannel} {selectChannel} {...$searchStore} />
-  {/key}
+  <ResultsList />
+
+  <SelectedChannelCard />
 
   {#key $subscriptionsStore.data}
     <ChannelsList {...$subscriptionsStore} />

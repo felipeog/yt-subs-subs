@@ -2,46 +2,42 @@
 
 <script>
   import { customFade } from "../animations/customFade";
-
-  export let currentChannel;
-  export let selectChannel;
-  export let loading;
-  export let error;
-  export let data;
+  import { searchStore, selectChannel } from "../stores/search";
 
   function handleResultClick(snippet) {
     return () => {
-      selectChannel({ snippet });
+      selectChannel(snippet);
     };
   }
 
   function handleResultKeyDown(snippet) {
     return (event) => {
       if (event.code.toLowerCase() === "enter") {
-        selectChannel({ snippet });
+        selectChannel(snippet);
       }
     };
   }
 </script>
 
 <div>
-  {#if loading}
+  {#if $searchStore.loading}
     <p in:customFade>loading...</p>
   {/if}
 
-  {#if error}
-    <p in:customFade>{error}</p>
+  {#if $searchStore.error}
+    <p in:customFade>{$searchStore.error}</p>
   {/if}
 
-  {#if data !== undefined}
-    {#if data.length}
+  {#if $searchStore.data !== undefined}
+    {#if $searchStore.data.length}
       <ul>
-        {#each data as { snippet } (snippet.channelId)}
+        {#each $searchStore.data as { snippet } (snippet.channelId)}
           <li
             in:customFade
             on:click={handleResultClick(snippet)}
             on:keydown={handleResultKeyDown(snippet)}
-            class:isSelected={snippet.channelId === currentChannel.channelId}
+            class:isSelected={snippet.channelId ===
+              $searchStore.currentChannel.channelId}
             tabindex="0"
           >
             {snippet.channelTitle}
