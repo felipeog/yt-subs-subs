@@ -1,14 +1,23 @@
 import { youtube } from "../services/youtube";
 import { createFetchStore } from "./utils/createFetchStore";
+import { loadSubscriptions } from "./subscriptions";
 
-// TODO: make it global; add selectedChannel
-function createSearchStore() {
-  const { store, load } = createFetchStore(youtube.search);
+const { store: searchStore, load: loadSearch } = createFetchStore({
+  fetchFunction: youtube.search,
+  extraValues: { currentChannel: {} },
+});
 
-  return {
-    searchStore: store,
-    loadSearch: load,
-  };
+searchStore.subscribe((state) => {
+  if (state.currentChannel?.snippet?.channelId) {
+    loadSubscriptions({ channelId: state.currentChannel.snippet.channelId });
+  }
+});
+
+function selectChannel(channel) {
+  searchStore.update((prevState) => ({
+    ...prevState,
+    currentChannel: channel,
+  }));
 }
 
-export { createSearchStore };
+export { searchStore, loadSearch, selectChannel };
