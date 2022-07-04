@@ -1,0 +1,6 @@
+[build]
+  publish = "dist/"
+  command = "npm run build"
+
+[context.deploy-preview]
+  command = "VITE_YT_API_KEY=test npm run build"
