@@ -11,9 +11,9 @@
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = !currentChannel.channelTitle
-    ? "yt-subs-subs"
-    : `yt-subs-subs | ${currentChannel.channelTitle}`;
+  $: headTitle = currentChannel.channelTitle
+    ? `yt-subs-subs | ${currentChannel.channelTitle}`
+    : "yt-subs-subs";
   $: {
     (async () => {
       if (currentChannel.channelId) {
