@@ -2,7 +2,6 @@
 
 <script>
   import { customFade } from "../animations/customFade";
-
   import ChannelItem from "./ChannelItem.svelte";
 
   export let variation = "big";

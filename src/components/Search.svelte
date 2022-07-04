@@ -7,22 +7,27 @@
   const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
   const { searchStore, loadSearch } = createSearchStore();
 
-  let headTitle = "yt-subs-subs";
   let currentChannel = {};
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
+  $: headTitle = !currentChannel.channelTitle
+    ? "yt-subs-subs"
+    : `yt-subs-subs | ${currentChannel.channelTitle}`;
+  $: {
+    (async () => {
+      if (currentChannel.channelId) {
+        await loadSubscriptions({ channelId: currentChannel.channelId });
+      }
+    })();
+  }
 
   async function getSearchResults() {
     await loadSearch({ query });
   }
 
   async function selectChannel({ snippet }) {
-    await loadSubscriptions({ channelId: snippet.channelId });
-
     currentChannel = snippet;
-    query = snippet.channelTitle;
-    headTitle = `yt-subs-subs | ${snippet.channelTitle.toLowerCase()}`;
   }
 </script>
 

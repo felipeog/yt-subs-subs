@@ -12,12 +12,16 @@
 
   let isAccordionOpen = false;
 
+  $: {
+    if (isAccordionOpen) {
+      (async () => {
+        await loadSubscriptions({ channelId: snippet.resourceId.channelId });
+      })();
+    }
+  }
+
   async function toggleAccordion() {
     isAccordionOpen = !isAccordionOpen;
-
-    if (isAccordionOpen && !$subscriptionsStore.data) {
-      await loadSubscriptions({ channelId: snippet.resourceId.channelId });
-    }
   }
 </script>
 

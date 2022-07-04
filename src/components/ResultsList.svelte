@@ -10,13 +10,13 @@
   export let data;
 
   function handleResultClick(snippet) {
-    return function () {
+    return () => {
       selectChannel({ snippet });
     };
   }
 
   function handleResultKeyDown(snippet) {
-    return function (event) {
+    return (event) => {
       if (event.code.toLowerCase() === "enter") {
         selectChannel({ snippet });
       }
