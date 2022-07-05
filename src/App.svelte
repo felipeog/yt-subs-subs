@@ -24,7 +24,7 @@
 
 <style>
   main {
-    max-width: 960px;
+    width: 768px;
     margin: 0 auto;
     padding: 6rem 1rem;
   }

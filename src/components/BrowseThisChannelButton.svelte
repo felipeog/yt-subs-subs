@@ -15,5 +15,10 @@
 <button class="small" on:click={handleButtonClick}>browse this channel</button>
 
 <style>
-  /* TODO: create smaller button */
+  .small {
+    font-size: 0.8rem;
+    padding: 0.1rem 0.2rem;
+    background-color: transparent;
+    color: var(--primary_color);
+  }
 </style>

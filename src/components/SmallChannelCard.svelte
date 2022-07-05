@@ -14,3 +14,11 @@
 
   <BrowseThisChannelButton {channel} />
 </div>
+
+<style>
+  div {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto 10rem;
+  }
+</style>

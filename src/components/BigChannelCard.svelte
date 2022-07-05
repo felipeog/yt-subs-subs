@@ -60,6 +60,9 @@
 
 <style>
   h1 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto 10rem;
     font-size: 1.6rem;
   }
 
