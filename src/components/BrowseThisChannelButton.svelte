@@ -1,17 +1,18 @@
 <svelte:options immutable />
 
-<!-- TODO: scroll to the top -->
 <script>
-  import { selectChannel } from "../stores/search";
+  import { selectChannel } from "../stores/channel";
 
   export let channel;
 
-  async function handleClick() {
+  async function handleButtonClick() {
     selectChannel(channel);
+
+    document.body.scrollIntoView();
   }
 </script>
 
-<button class="small" on:click={handleClick}>browse this channel</button>
+<button class="small" on:click={handleButtonClick}>browse this channel</button>
 
 <style>
   /* TODO: create smaller button */
