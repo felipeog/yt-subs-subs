@@ -1,8 +1,7 @@
 import { writable } from "svelte/store";
 
-function createFetchStore({ fetchFunction, extraValues = {} }) {
+function createFetchStore({ fetchFunction }) {
   const store = writable({
-    ...extraValues,
     loading: false,
     error: "",
     data: undefined,
