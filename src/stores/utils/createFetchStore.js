@@ -8,12 +8,11 @@ function createFetchStore({ fetchFunction }) {
   });
 
   async function load(args) {
-    store.update((prevState) => ({
-      ...prevState,
+    store.set({
       loading: true,
       error: "",
       data: undefined,
-    }));
+    });
 
     const response = await fetchFunction(args);
 
