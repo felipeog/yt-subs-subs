@@ -5,13 +5,13 @@
   import SmallChannelCard from "./SmallChannelCard.svelte";
 
   export let variation = "big";
-  export let snippet;
+  export let channel;
 </script>
 
 {#if variation === "big"}
-  <BigChannelCard {snippet} />
+  <BigChannelCard {channel} />
 {/if}
 
 {#if variation === "small"}
-  <SmallChannelCard {snippet} />
+  <SmallChannelCard {channel} />
 {/if}

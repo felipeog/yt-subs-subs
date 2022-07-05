@@ -7,13 +7,18 @@ const { store: searchStore, load: loadSearch } = createFetchStore({
   extraValues: { currentChannel: {} },
 });
 
-searchStore.subscribe((state) => {
-  if (state.currentChannel?.snippet?.channelId) {
-    loadSubscriptions({ channelId: state.currentChannel.snippet.channelId });
+// TODO: create channel store
+searchStore.subscribe(async (state) => {
+  if (state.currentChannel.channelId) {
+    await loadSubscriptions({
+      channelId: state.currentChannel.channelId,
+    });
   }
 });
 
 function selectChannel(channel) {
+  console.log("🚀 ~ channel", channel);
+
   searchStore.update((prevState) => ({
     ...prevState,
     currentChannel: channel,

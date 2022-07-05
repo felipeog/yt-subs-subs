@@ -26,9 +26,9 @@
 
     {#if data.length}
       <ol>
-        {#each data as { snippet } (snippet.resourceId.channelId)}
+        {#each data as channel (channel.channelId)}
           <li class={variation} in:customFade>
-            <ChannelItem {variation} {snippet} />
+            <ChannelItem {variation} {channel} />
           </li>
         {/each}
       </ol>

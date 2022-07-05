@@ -11,7 +11,7 @@
   const { store: localSubscriptionsStore, load: localLoadSubscriptions } =
     createFetchStore({ fetchFunction: youtube.subscriptions });
 
-  export let snippet;
+  export let channel;
 
   let isAccordionOpen = false;
 
@@ -19,7 +19,7 @@
     if (isAccordionOpen) {
       (async () => {
         await localLoadSubscriptions({
-          channelId: snippet.resourceId.channelId,
+          channelId: channel.channelId,
         });
       })();
     }
@@ -32,16 +32,14 @@
 
 <article>
   <h1>
-    <ExternalLink
-      href="https://www.youtube.com/channel/{snippet.resourceId.channelId}"
-    >
-      {snippet.title}
+    <ExternalLink href="https://www.youtube.com/channel/{channel.channelId}">
+      {channel.title}
     </ExternalLink>
 
-    <BrowseThisChannelButton channelId={snippet.resourceId.channelId} />
+    <BrowseThisChannelButton {channel} />
   </h1>
 
-  <p>{snippet.description ?? "no description"}</p>
+  <p>{channel.description || "no description"}</p>
 
   <Accordion {isAccordionOpen}>
     <button

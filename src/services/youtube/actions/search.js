@@ -33,7 +33,16 @@ async function search({ query }) {
     errorMessage = error;
   }
 
-  const result = errorMessage ?? preResult;
+  console.log("🚀 ~ preResult", preResult);
+
+  const result =
+    errorMessage ??
+    preResult.map(({ snippet }) => ({
+      title: snippet.title,
+      description: snippet.description,
+      channelId: snippet.channelId,
+    }));
+  console.log("🚀 ~ result", result);
 
   cache.set(query, result);
 
@@ -41,3 +50,13 @@ async function search({ query }) {
 }
 
 export { search };
+
+/*
+response's relevant values:
+
+{
+  "title": "Ben Awad",
+  "description": "I'm a software developer who makes videos about React, React Native, GraphQL, Typescript, Node.js, PostgreSQL, Python, and ...",
+  "channelId": "UC-8QAzbLcRglXeN_MY9blyw",
+}
+*/

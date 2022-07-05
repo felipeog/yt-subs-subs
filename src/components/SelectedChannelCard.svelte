@@ -2,11 +2,11 @@
   import { searchStore } from "../stores/search";
 </script>
 
-{#if $searchStore.currentChannel.channelTitle}
+{#if $searchStore.currentChannel.title}
   <article>
-    <h1>{$searchStore.currentChannel.channelTitle}</h1>
+    <h1>{$searchStore.currentChannel.title}</h1>
 
-    <p>{$searchStore.currentChannel.description ?? "no description"}</p>
+    <p>{$searchStore.currentChannel.description || "no description"}</p>
   </article>
 {/if}
 

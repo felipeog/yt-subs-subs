@@ -46,9 +46,15 @@ async function subscriptions({ channelId }) {
 
   const result =
     errorMessage ??
-    preResult.sort((a, b) => {
-      return a.snippet.title.localeCompare(b.snippet.title);
-    });
+    preResult
+      .map(({ snippet }) => ({
+        title: snippet.title,
+        description: snippet.description,
+        channelId: snippet.resourceId.channelId,
+      }))
+      .sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
 
   cache.set(channelId, result);
 
@@ -56,3 +62,15 @@ async function subscriptions({ channelId }) {
 }
 
 export { subscriptions };
+
+/*
+response's relevant values:
+
+{
+  "title": "Joshua Fluke",
+  "description": "I make a variety of content. I'm always having these wild ideas.",
+  "resourceId": {
+    "channelId": "UC-91UA-Xy2Cvb98deRXuggA",
+  },
+}
+*/

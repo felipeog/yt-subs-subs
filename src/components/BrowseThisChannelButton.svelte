@@ -2,12 +2,12 @@
 
 <!-- TODO: scroll to the top -->
 <script>
-  import { loadSubscriptions } from "../stores/subscriptions";
+  import { selectChannel } from "../stores/search";
 
-  export let channelId;
+  export let channel;
 
   async function handleClick() {
-    await loadSubscriptions({ channelId });
+    selectChannel(channel);
   }
 </script>
 

@@ -11,8 +11,8 @@
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = $searchStore.currentChannel.channelTitle
-    ? `yt-subs-subs | ${$searchStore.currentChannel.channelTitle}`
+  $: headTitle = $searchStore.currentChannel.title
+    ? `yt-subs-subs | ${$searchStore.currentChannel.title}`
     : "yt-subs-subs";
   $: {
     (async () => {
@@ -41,12 +41,8 @@
   </form>
 
   <ResultsList />
-
   <SelectedChannelCard />
-
-  {#key $subscriptionsStore.data}
-    <ChannelsList {...$subscriptionsStore} />
-  {/key}
+  <ChannelsList {...$subscriptionsStore} />
 </section>
 
 <style>

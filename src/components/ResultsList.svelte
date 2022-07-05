@@ -4,16 +4,16 @@
   import { customFade } from "../animations/customFade";
   import { searchStore, selectChannel } from "../stores/search";
 
-  function handleResultClick(snippet) {
+  function handleResultClick(channel) {
     return () => {
-      selectChannel(snippet);
+      selectChannel(channel);
     };
   }
 
-  function handleResultKeyDown(snippet) {
+  function handleResultKeyDown(channel) {
     return (event) => {
       if (event.code.toLowerCase() === "enter") {
-        selectChannel(snippet);
+        selectChannel(channel);
       }
     };
   }
@@ -31,16 +31,16 @@
   {#if $searchStore.data !== undefined}
     {#if $searchStore.data.length}
       <ul>
-        {#each $searchStore.data as { snippet } (snippet.channelId)}
+        {#each $searchStore.data as channel (channel.channelId)}
           <li
             in:customFade
-            on:click={handleResultClick(snippet)}
-            on:keydown={handleResultKeyDown(snippet)}
-            class:isSelected={snippet.channelId ===
+            on:click={handleResultClick(channel)}
+            on:keydown={handleResultKeyDown(channel)}
+            class:isSelected={channel.channelId ===
               $searchStore.currentChannel.channelId}
             tabindex="0"
           >
-            {snippet.channelTitle}
+            {channel.title}
           </li>
         {/each}
       </ul>

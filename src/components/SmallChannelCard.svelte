@@ -4,15 +4,13 @@
   import ExternalLink from "./ExternalLink.svelte";
   import BrowseThisChannelButton from "./BrowseThisChannelButton.svelte";
 
-  export let snippet;
+  export let channel;
 </script>
 
 <div>
-  <ExternalLink
-    href="https://www.youtube.com/channel/{snippet.resourceId.channelId}"
-  >
-    {snippet.title}
+  <ExternalLink href="https://www.youtube.com/channel/{channel.channelId}">
+    {channel.title}
   </ExternalLink>
 
-  <BrowseThisChannelButton channelId={snippet.resourceId.channelId} />
+  <BrowseThisChannelButton {channel} />
 </div>
