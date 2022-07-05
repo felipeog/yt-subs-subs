@@ -33,8 +33,6 @@ async function search({ query }) {
     errorMessage = error;
   }
 
-  console.log("🚀 ~ preResult", preResult);
-
   const result =
     errorMessage ??
     preResult.map(({ snippet }) => ({
@@ -42,7 +40,6 @@ async function search({ query }) {
       description: snippet.description,
       channelId: snippet.channelId,
     }));
-  console.log("🚀 ~ result", result);
 
   cache.set(query, result);
 

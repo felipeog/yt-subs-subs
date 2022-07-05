@@ -25,7 +25,7 @@
     }
   }
 
-  async function toggleAccordion() {
+  async function handleTriggerClick() {
     isAccordionOpen = !isAccordionOpen;
   }
 </script>
@@ -44,7 +44,7 @@
   <Accordion {isAccordionOpen}>
     <button
       slot="trigger"
-      on:click={toggleAccordion}
+      on:click={handleTriggerClick}
       disabled={$localSubscriptionsStore.loading}
     >
       {isAccordionOpen ? "hide sub's subs" : "see sub's subs"}
