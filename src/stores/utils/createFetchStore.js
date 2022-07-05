@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-function createFetchStore(get) {
+function createFetchStore({ fetchFunction }) {
   const store = writable({
     loading: false,
     error: "",
@@ -14,7 +14,7 @@ function createFetchStore(get) {
       data: undefined,
     });
 
-    const response = await get(args);
+    const response = await fetchFunction(args);
 
     if (typeof response === "string") {
       store.update((prevState) => ({

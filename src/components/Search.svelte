@@ -1,33 +1,32 @@
 <script>
   import ChannelsList from "./ChannelsList.svelte";
   import ResultsList from "./ResultsList.svelte";
-  import { createSubscriptionsStore } from "../stores/subscriptions";
-  import { createSearchStore } from "../stores/search";
+  import SelectedChannelCard from "./SelectedChannelCard.svelte";
+  import { channelStore } from "../stores/channel";
+  import { searchStore, loadSearch } from "../stores/search";
+  import {
+    subscriptionsStore,
+    loadSubscriptions,
+  } from "../stores/subscriptions";
 
-  const { subscriptionsStore, loadSubscriptions } = createSubscriptionsStore();
-  const { searchStore, loadSearch } = createSearchStore();
-
-  let currentChannel = {};
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = currentChannel.channelTitle
-    ? `yt-subs-subs | ${currentChannel.channelTitle}`
+  $: headTitle = $channelStore.currentChannel.title
+    ? `yt-subs-subs | ${$channelStore.currentChannel.title}`
     : "yt-subs-subs";
   $: {
     (async () => {
-      if (currentChannel.channelId) {
-        await loadSubscriptions({ channelId: currentChannel.channelId });
+      if ($channelStore.currentChannel.channelId) {
+        await loadSubscriptions({
+          channelId: $channelStore.currentChannel.channelId,
+        });
       }
     })();
   }
 
-  async function getSearchResults() {
+  async function handleFormSubmit() {
     await loadSearch({ query });
-  }
-
-  async function selectChannel({ snippet }) {
-    currentChannel = snippet;
   }
 </script>
 
@@ -36,19 +35,15 @@
 </svelte:head>
 
 <section>
-  <form on:submit|preventDefault={getSearchResults}>
+  <form on:submit|preventDefault={handleFormSubmit}>
     <input bind:value={query} placeholder="channel name" type="text" required />
 
     <button type="submit" disabled={isLoading}>search</button>
   </form>
 
-  {#key $searchStore.data}
-    <ResultsList {currentChannel} {selectChannel} {...$searchStore} />
-  {/key}
-
-  {#key $subscriptionsStore.data}
-    <ChannelsList {...$subscriptionsStore} />
-  {/key}
+  <ResultsList />
+  <SelectedChannelCard />
+  <ChannelsList {...$subscriptionsStore} />
 </section>
 
 <style>
