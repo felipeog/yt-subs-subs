@@ -2,6 +2,7 @@
   import ChannelsList from "./ChannelsList.svelte";
   import ResultsList from "./ResultsList.svelte";
   import SelectedChannelCard from "./SelectedChannelCard.svelte";
+  import { channelStore } from "../stores/channel";
   import { searchStore, loadSearch } from "../stores/search";
   import {
     subscriptionsStore,
@@ -11,20 +12,20 @@
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = $searchStore.currentChannel.title
-    ? `yt-subs-subs | ${$searchStore.currentChannel.title}`
+  $: headTitle = $channelStore.currentChannel.title
+    ? `yt-subs-subs | ${$channelStore.currentChannel.title}`
     : "yt-subs-subs";
   $: {
     (async () => {
-      if ($searchStore.currentChannel.channelId) {
+      if ($channelStore.currentChannel.channelId) {
         await loadSubscriptions({
-          channelId: $searchStore.currentChannel.channelId,
+          channelId: $channelStore.currentChannel.channelId,
         });
       }
     })();
   }
 
-  async function getSearchResults() {
+  async function handleFormSubmit() {
     await loadSearch({ query });
   }
 </script>
@@ -34,7 +35,7 @@
 </svelte:head>
 
 <section>
-  <form on:submit|preventDefault={getSearchResults}>
+  <form on:submit|preventDefault={handleFormSubmit}>
     <input bind:value={query} placeholder="channel name" type="text" required />
 
     <button type="submit" disabled={isLoading}>search</button>

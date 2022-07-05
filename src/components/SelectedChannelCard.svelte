@@ -1,12 +1,12 @@
 <script>
-  import { searchStore } from "../stores/search";
+  import { channelStore } from "../stores/channel";
 </script>
 
-{#if $searchStore.currentChannel.title}
+{#if $channelStore.currentChannel.title}
   <article>
-    <h1>{$searchStore.currentChannel.title}</h1>
+    <h1>{$channelStore.currentChannel.title}</h1>
 
-    <p>{$searchStore.currentChannel.description || "no description"}</p>
+    <p>{$channelStore.currentChannel.description || "no description"}</p>
   </article>
 {/if}
 

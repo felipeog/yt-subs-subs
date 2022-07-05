@@ -2,7 +2,8 @@
 
 <script>
   import { customFade } from "../animations/customFade";
-  import { searchStore, selectChannel } from "../stores/search";
+  import { searchStore } from "../stores/search";
+  import { channelStore, selectChannel } from "../stores/channel";
 
   function handleResultClick(channel) {
     return () => {
@@ -37,7 +38,7 @@
             on:click={handleResultClick(channel)}
             on:keydown={handleResultKeyDown(channel)}
             class:isSelected={channel.channelId ===
-              $searchStore.currentChannel.channelId}
+              $channelStore.currentChannel.channelId}
             tabindex="0"
           >
             {channel.title}
