@@ -4,6 +4,7 @@
 
 {#if $channelStore.currentChannel.title}
   <article>
+    <!-- TODO: add external link -->
     <h1>{$channelStore.currentChannel.title}</h1>
 
     <p>{$channelStore.currentChannel.description || "no description"}</p>
