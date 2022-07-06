@@ -1,20 +1,17 @@
 <script>
-  import { customFade } from "../animations/customFade";
+  import { customFade } from "../animations";
+  import { scrollToTop } from "../utils";
 
   let scrollY;
   let innerHeight;
 
   $: shouldRender = scrollY > innerHeight;
-
-  function scrollToTheTop() {
-    document.body.scrollIntoView();
-  }
 </script>
 
 <svelte:window bind:scrollY bind:innerHeight />
 
 {#if shouldRender}
-  <button in:customFade on:click={scrollToTheTop}>to the top</button>
+  <button in:customFade on:click={scrollToTop}>to the top</button>
 {/if}
 
 <style>

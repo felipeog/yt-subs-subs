@@ -1,7 +1,7 @@
 <svelte:options immutable />
 
 <script>
-  import { customFade } from "../animations/customFade";
+  import { customFade } from "../animations";
   import { searchStore } from "../stores/search";
   import { channelStore, selectChannel } from "../stores/channel";
 

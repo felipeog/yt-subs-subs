@@ -1,0 +1,1 @@
+export { customFade } from "./customFade";

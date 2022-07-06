@@ -1,0 +1,1 @@
+export { createFetchStore } from "./createFetchStore";
