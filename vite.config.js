@@ -15,10 +15,7 @@ const absolutePathAliases = directoryEntries.reduce((acc, directoryEntry) => {
   }
 
   if (directoryEntry.isFile()) {
-    const alias = directoryEntry.name.replace(
-      /(\.js)|(\.svelte)|(\.d\.ts)/g,
-      ""
-    );
+    const [alias] = directoryEntry.name.split(".");
 
     return {
       ...acc,
