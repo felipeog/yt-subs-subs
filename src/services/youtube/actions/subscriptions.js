@@ -12,11 +12,11 @@ async function subscriptions({ channelId }) {
   let pageToken = "";
   let errorMessage;
 
-  const searchParams = new URLSearchParams();
-
-  searchParams.set("part", "snippet");
-  searchParams.set("channelId", channelId);
-  searchParams.set("maxResults", "50");
+  const searchParams = new URLSearchParams({
+    part: "snippet",
+    channelId: channelId,
+    maxResults: "50",
+  });
 
   do {
     try {

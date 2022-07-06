@@ -11,12 +11,12 @@ async function search({ query }) {
   let preResult = [];
   let errorMessage;
 
-  const searchParams = new URLSearchParams();
-
-  searchParams.set("part", "snippet");
-  searchParams.set("maxResults", "50");
-  searchParams.set("q", query);
-  searchParams.set("type", "channel");
+  const searchParams = new URLSearchParams({
+    part: "snippet",
+    maxResults: "50",
+    q: query,
+    type: "channel",
+  });
 
   try {
     response = await fetchJson({
