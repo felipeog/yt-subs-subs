@@ -6,7 +6,7 @@
   import Accordion from "./Accordion.svelte";
   import ChannelsList from "./ChannelsList.svelte";
   import { youtube } from "../services/youtube";
-  import { createFetchStore } from "../stores/utils/createFetchStore";
+  import { createFetchStore } from "../stores/utils";
 
   const { store: localSubscriptionsStore, load: localLoadSubscriptions } =
     createFetchStore({ fetchFunction: youtube.subscriptions });

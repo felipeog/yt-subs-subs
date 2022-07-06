@@ -1,14 +1,14 @@
 <svelte:options immutable />
 
 <script>
+  import { scrollToTop } from "../utils";
   import { selectChannel } from "../stores/channel";
 
   export let channel;
 
   async function handleButtonClick() {
     selectChannel(channel);
-
-    document.body.scrollIntoView();
+    scrollToTop();
   }
 </script>
 
