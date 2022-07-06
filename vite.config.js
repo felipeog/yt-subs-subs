@@ -14,8 +14,22 @@ const absolutePathAliases = directoryEntries.reduce((acc, directoryEntry) => {
     };
   }
 
+  if (directoryEntry.isFile()) {
+    const alias = directoryEntry.name.replace(
+      /(\.js)|(\.svelte)|(\.d\.ts)/g,
+      ""
+    );
+
+    return {
+      ...acc,
+      [alias]: path.join(srcPath, directoryEntry.name),
+    };
+  }
+
   return acc;
 }, {});
+
+console.log("🚀 ~ absolutePathAliases", absolutePathAliases);
 
 // https://vitejs.dev/config/
 export default defineConfig({
