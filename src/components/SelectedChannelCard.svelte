@@ -1,13 +1,19 @@
 <script>
+  import ExternalLink from "./ExternalLink.svelte";
   import { channelStore } from "../stores/channel";
 </script>
 
 {#if $channelStore.currentChannel.title}
-  <article>
-    <!-- TODO: add external link -->
-    <h1>{$channelStore.currentChannel.title}</h1>
+  {@const channel = $channelStore.currentChannel}
 
-    <p>{$channelStore.currentChannel.description || "no description"}</p>
+  <article>
+    <h1>
+      <ExternalLink href="https://www.youtube.com/channel/{channel.channelId}">
+        {channel.title}
+      </ExternalLink>
+    </h1>
+
+    <p>{channel.description || "no description"}</p>
   </article>
 {/if}
 
@@ -21,6 +27,6 @@
   }
 
   p {
-    margin-top: 0.2rem;
+    margin-top: 0.6rem;
   }
 </style>
