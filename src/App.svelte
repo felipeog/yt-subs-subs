@@ -4,18 +4,26 @@
   import Header from "./components/Header.svelte";
   import Search from "./components/Search.svelte";
   import ScrollToTheTopButton from "./components/ScrollToTheTopButton.svelte";
+  import { channelStore } from "./stores/channel";
 
   const wrapperHeight = tweened(undefined, {
     duration: 200,
   });
 
-  let clientHeight;
+  let mainHeight;
 
-  $: $wrapperHeight = clientHeight;
+  $: $wrapperHeight = mainHeight;
+  $: headTitle = $channelStore.currentChannel.title
+    ? `yt-subs-subs | ${$channelStore.currentChannel.title}`
+    : "yt-subs-subs";
 </script>
 
+<svelte:head>
+  <title>{headTitle}</title>
+</svelte:head>
+
 <div style="height: {$wrapperHeight}px;">
-  <main bind:clientHeight>
+  <main bind:clientHeight={mainHeight}>
     <Header />
     <Search />
     <ScrollToTheTopButton />

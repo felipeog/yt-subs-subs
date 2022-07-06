@@ -12,9 +12,6 @@
   let query = "";
 
   $: isLoading = $subscriptionsStore.loading || $searchStore.loading;
-  $: headTitle = $channelStore.currentChannel.title
-    ? `yt-subs-subs | ${$channelStore.currentChannel.title}`
-    : "yt-subs-subs";
   $: {
     (async () => {
       if ($channelStore.currentChannel.channelId) {
@@ -29,10 +26,6 @@
     await loadSearch({ query });
   }
 </script>
-
-<svelte:head>
-  <title>{headTitle}</title>
-</svelte:head>
 
 <section>
   <form on:submit|preventDefault={handleFormSubmit}>
