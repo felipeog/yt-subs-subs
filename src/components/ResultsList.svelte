@@ -1,9 +1,9 @@
 <svelte:options immutable />
 
 <script>
-  import { customFade } from "../animations";
-  import { searchStore } from "../stores/search";
-  import { channelStore, selectChannel } from "../stores/channel";
+  import { customFade } from "animations";
+  import { searchStore } from "stores/search";
+  import { channelStore, selectChannel } from "stores/channel";
 
   function handleResultClick(channel) {
     return () => {

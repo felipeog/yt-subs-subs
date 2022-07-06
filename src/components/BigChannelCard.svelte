@@ -1,12 +1,14 @@
 <svelte:options immutable />
 
 <script>
-  import BrowseThisChannelButton from "./BrowseThisChannelButton.svelte";
-  import ExternalLink from "./ExternalLink.svelte";
-  import Accordion from "./Accordion.svelte";
-  import ChannelsList from "./ChannelsList.svelte";
-  import { youtube } from "../services/youtube";
-  import { createFetchStore } from "../stores/utils";
+  import {
+    Accordion,
+    BrowseThisChannelButton,
+    ExternalLink,
+    ChannelsList,
+  } from "components";
+  import { youtube } from "services/youtube";
+  import { createFetchStore } from "stores/utils";
 
   const { store: localSubscriptionsStore, load: localLoadSubscriptions } =
     createFetchStore({ fetchFunction: youtube.subscriptions });

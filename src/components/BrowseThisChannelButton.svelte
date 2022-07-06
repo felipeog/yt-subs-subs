@@ -1,8 +1,8 @@
 <svelte:options immutable />
 
 <script>
-  import { scrollToTop } from "../utils";
-  import { selectChannel } from "../stores/channel";
+  import { scrollToTop } from "utils";
+  import { selectChannel } from "stores/channel";
 
   export let channel;
 

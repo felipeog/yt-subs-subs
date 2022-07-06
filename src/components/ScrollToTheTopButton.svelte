@@ -1,6 +1,6 @@
 <script>
-  import { customFade } from "../animations";
-  import { scrollToTop } from "../utils";
+  import { customFade } from "animations";
+  import { scrollToTop } from "utils";
 
   let scrollY;
   let innerHeight;
