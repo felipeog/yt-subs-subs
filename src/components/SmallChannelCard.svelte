@@ -1,8 +1,7 @@
 <svelte:options immutable />
 
 <script>
-  import ExternalLink from "./ExternalLink.svelte";
-  import BrowseThisChannelButton from "./BrowseThisChannelButton.svelte";
+  import { ExternalLink, BrowseThisChannelButton } from "components";
 
   export let channel;
 </script>

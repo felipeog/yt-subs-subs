@@ -1,10 +1,8 @@
 <script>
   import { tweened } from "svelte/motion";
 
-  import Header from "./components/Header.svelte";
-  import Search from "./components/Search.svelte";
-  import ScrollToTheTopButton from "./components/ScrollToTheTopButton.svelte";
-  import { channelStore } from "./stores/channel";
+  import { Header, Search, ScrollToTheTopButton } from "components";
+  import { channelStore } from "stores/channel";
 
   const wrapperHeight = tweened(undefined, {
     duration: 200,

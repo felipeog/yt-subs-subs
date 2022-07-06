@@ -1,13 +1,8 @@
 <script>
-  import ChannelsList from "./ChannelsList.svelte";
-  import ResultsList from "./ResultsList.svelte";
-  import SelectedChannelCard from "./SelectedChannelCard.svelte";
-  import { channelStore } from "../stores/channel";
-  import { searchStore, loadSearch } from "../stores/search";
-  import {
-    subscriptionsStore,
-    loadSubscriptions,
-  } from "../stores/subscriptions";
+  import { ChannelsList, ResultsList, SelectedChannelCard } from "components";
+  import { channelStore } from "stores/channel";
+  import { searchStore, loadSearch } from "stores/search";
+  import { subscriptionsStore, loadSubscriptions } from "stores/subscriptions";
 
   let query = "";
 

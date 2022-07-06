@@ -1,6 +1,6 @@
 <script>
-  import ExternalLink from "./ExternalLink.svelte";
-  import { channelStore } from "../stores/channel";
+  import { ExternalLink } from "components";
+  import { channelStore } from "stores/channel";
 </script>
 
 {#if $channelStore.currentChannel.title}

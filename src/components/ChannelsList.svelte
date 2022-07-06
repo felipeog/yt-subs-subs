@@ -1,8 +1,8 @@
 <svelte:options immutable />
 
 <script>
-  import { customFade } from "../animations";
-  import ChannelItem from "./ChannelItem.svelte";
+  import { customFade } from "animations";
+  import { ChannelItem } from "components";
 
   export let variation = "big";
   export let loading;

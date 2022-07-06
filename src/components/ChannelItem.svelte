@@ -1,8 +1,7 @@
 <svelte:options immutable />
 
 <script>
-  import BigChannelCard from "./BigChannelCard.svelte";
-  import SmallChannelCard from "./SmallChannelCard.svelte";
+  import { BigChannelCard, SmallChannelCard } from "components";
 
   export let variation = "big";
   export let channel;
