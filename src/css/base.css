@@ -1,8 +1,17 @@
 :root {
   --primary_color: #cd9278;
-  --dark_gray: #070707;
-  --medium_gray: #444f55;
-  --light_gray: #fafafa;
+  --gray_100: #070707;
+  --gray_200: #444f55;
+  --gray_300: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary_color: #cd9278;
+    --gray_100: #f7f7f7;
+    --gray_200: #bbbbbc;
+    --gray_300: #1a1a1a;
+  }
 }
 
 *,
@@ -13,20 +22,20 @@
   word-break: break-word;
   text-transform: lowercase;
   font-family: "Courier Prime", monospace;
-  color: var(--medium_gray);
+  color: var(--gray_200);
   font-size: 1rem;
   font-weight: normal;
 }
 
 html {
   font-size: 16px;
-  background-color: var(--light_gray);
+  background-color: var(--gray_300);
   scroll-behavior: smooth;
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
   font-weight: bold;
-  color: var(--dark_gray);
+  color: var(--gray_100);
 }
 
 input,
@@ -37,13 +46,13 @@ button {
 }
 
 input {
-  border-color: var(--medium_gray);
+  border-color: var(--gray_200);
   background-color: transparent;
 }
 
 button {
   background-color: var(--primary_color);
-  color: var(--light_gray);
+  color: var(--gray_300);
   border-color: var(--primary_color);
   cursor: pointer;
 }
@@ -53,8 +62,8 @@ button:hover {
 }
 
 button:disabled {
-  background-color: var(--medium_gray);
-  border-color: var(--medium_gray);
+  background-color: var(--gray_200);
+  border-color: var(--gray_200);
   cursor: not-allowed;
 }
 
@@ -63,7 +72,7 @@ a {
 }
 
 a:visited {
-  color: var(--medium_gray);
+  color: var(--gray_200);
 }
 
 a:hover {

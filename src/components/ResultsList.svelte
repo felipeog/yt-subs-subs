@@ -61,7 +61,7 @@
     overflow-y: scroll;
     border-style: solid;
     border-width: 0.1rem;
-    border-color: var(--medium_gray);
+    border-color: var(--gray_200);
   }
 
   li {
@@ -75,6 +75,6 @@
 
   .isSelected {
     background-color: var(--primary_color);
-    color: var(--light_gray);
+    color: var(--gray_300);
   }
 </style>
